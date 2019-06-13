@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	data-layout-decorate="~{fragments/layout}">
+<head>
+<title>R&eacute;sultats</title>
+</head>
+<body>
+	<!-- page content -->
+	<div class="right_col" role="main" data-layout-fragment="content">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-success" th:if="${mesure}">
+					<div class="panel-heading">
+						<h3 class="panel-title">Informations sur la mesure</h3>
+					</div>
+					<div class="panel-body info">
+						<div>
+							<label class="intitule">Impact:</label> <label
+								th:text="${mesure.impact.libImpact}"></label>
+						</div>
+						<div>
+							<label class="intitule">Libell&eacute; mesure:</label> <label
+								th:text="${mesure.libMesure}"></label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title liste">
+						<h2>Liste des r&eacute;sultats attendus</h2>
+						<ul class="nav navbar-right panel_toolbox">
+							<li><a class="collapse-link" title="Remonter"><i
+									class="fa fa-chevron-up"></i></a></li>
+						</ul>
+						<div class="clearfix"></div>
+					</div>
+					<div class="x_content">
+						<div>
+							<a data-th-href="@{/formResultat(idMesure=${mesure.idMesure})}"
+								class="btn btn-success fa fa-plus" title="Ajouter"></a> <a
+								data-th-href="@{/findMesure(idImpact=${mesure.impact.idImpact})}"
+								class="btn btn-default fa fa-chevron-left" title="Retour"></a>
+						</div>
+						<table class="table table-striped">
+							<tr>
+								<th>Num</th>
+								<th>Libell&eacute;</th>
+								<th>Priorite</th>
+								<th>Taux efficacit&eacute;</th>
+								<th colspan="2">Actions</th>
+							</tr>
+							<tr th:each="r:${listResultats}">
+								<td th:text="${r.idResultat}"></td>
+								<td th:text="${r.libResultat}"></td>
+								<td th:text="${r.priorite}"></td>
+								<td th:text="${r.tauxeff}"></td>
+								<td><a
+									data-th-href="@{rechercherResultat(id=${r.idResultat})}"
+									class="btn btn-warning fa fa-edit" role="button"></a></td>
+								<td><a
+									onclick="return confirm('Etes vous sur de supprimer ce site ?')"
+									data-th-href="@{#}" class="btn btn-danger fa fa-remove"
+									role="button"></a></td>
+							</tr>
+						</table>
+						<div class="container">
+							<ul class="nav nav-pills">
+								<li th:each="pa:${pages}"
+									th:class="${pa==currentPage}?active:''"><a
+									data-th-href="@{findResultat(page=${pa},motCle=${motCle})}"
+									th:text="${pa}"></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /page content -->
+</body>
+</html>

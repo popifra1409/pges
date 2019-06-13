@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	data-layout-decorate="~{fragments/layout}">
+<head>
+<title>Projets</title>
+</head>
+<body>
+	<!-- page content -->
+	<div class="right_col" role="main" data-layout-fragment="content">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-success" th:if="${societe}">
+					<div class="panel-heading">
+						<h3 class="panel-title">Informations sur la
+							soci&eacute;t&eacute;</h3>
+					</div>
+					<div class="panel-body info">
+						<div>
+							<label class="intitule">Code:</label> <label th:text="${societe.codeEntr}"></label>
+						</div>
+						<div>
+							<label class="intitule">Raison sociale:</label> <label
+								th:text="${societe.nomEntr}"></label>
+						</div>
+						<div>
+							<label class="intitule">Nombre employ&eacute;s:</label> <label
+								th:text="${societe.nbreEmp}"></label>
+						</div>
+						<div>
+							<label class="intitule">T&eacute;l&eacute;phone:</label> <label
+								th:text="${societe.telephone}"></label>
+						</div>
+						<div>
+							<label class="intitule">Promoteur:</label> <label
+								th:text="${societe.personne.nomPersonne}"></label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title liste">
+						<h2>Liste des projets</h2>
+						<ul class="nav navbar-right panel_toolbox">
+							<li><a class="collapse-link" title="Remonter"><i class="fa fa-chevron-up"></i></a>
+							</li>
+						</ul>
+						<div class="clearfix"></div>
+					</div>
+					<div class="x_content">
+						<div>
+							<a data-th-href="@{/formProjet(codeEntr=${societe.codeEntr})}"
+								class="btn btn-success fa fa-plus" title="Ajouter"></a>
+							<a data-th-href="@{/findSociete}"
+								class="btn btn-default fa fa-chevron-left" title="Retour"></a>
+						</div>
+						<table class="table table-striped">
+							<tr>
+								<th>Num</th>
+								<th>Libell&eacute;</th>
+								<th>Dur&eacute;e(jours)</th>
+								<th>Produit</th>
+								<th>Site</th>
+								<th>Ref. CCE</th>
+								<th>Date signature CCE</th>
+								<th>Ref. ACE</th>
+								<th>Date signature ACE</th>
+								<th colspan="2">Actions</th>
+							</tr>
+							<tr th:each="p:${listProjets}">
+								<td th:text="${p.idProjet}"></td>
+								<td th:text="${p.libProjet}"></td>
+								<td th:text="${p.duree}"></td>
+								<td th:text="${p.produitExp}"></td>
+								<td th:text="${p.site.nomSite}"></td>
+								<td th:text="${p.refCCE}"></td>
+								<td th:text="${p.dateCCE}"></td>
+								<td th:text="${p.refACE}"></td>
+								<td th:text="${p.dateACE}"></td>
+								<td><a data-th-href="@{rechercherProjet(id=${p.idProjet})}"
+									class="btn btn-warning fa fa-edit" role="button"
+									title="Modifier"></a></td>
+								<td><a
+									onclick="return confirm('Etes vous sur de supprimer ce projet ?')"
+									data-th-href="@{supprimerProjet(id=${p.idProjet})}"
+									class="btn btn-danger fa fa-remove" role="button"
+									title="Supprimer"></a></td>
+							</tr>
+						</table>
+						<div class="container">
+							<ul class="nav nav-pills">
+								<li th:each="pa:${pages}"
+									th:class="${pa==currentPage}?active:''"><a
+									data-th-href="@{projet(page=${pa},motCle=${motCle})}"
+									th:text="${pa}"></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /page content -->
+</body>
+</html>

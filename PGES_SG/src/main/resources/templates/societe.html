@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	data-layout-decorate="~{fragments/layout}">
+<head>
+<title>Soci&eacute;t&eacute;</title>
+</head>
+<body>
+	<!-- page content -->
+	<div class="right_col" role="main" data-layout-fragment="content">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-success" th:if="${personne}">
+					<div class="panel-heading">
+						<h3 class="panel-title">Informations sur l'agent</h3>
+					</div>
+					<div class="panel-body info">
+						<div>
+							<label class="intitule">Type agent:</label> <label
+								th:text="${personne.class.simpleName}"></label>
+						</div>
+						<div>
+							<label class="intitule">Nom:</label> <label th:text="${personne.nomPersonne}"></label>
+						</div>
+						<div>
+							<label class="intitule">Pr&eacute;nom:</label> <label
+								th:text="${personne.pnomPersonne}"></label>
+						</div>
+						<div>
+							<label class="intitule">Sexe:</label> <label th:text="${personne.sexe}"></label>
+						</div>
+						<div>
+							<label class="intitule">Adresse:</label> <label th:text="${personne.adresse}"></label>
+						</div>
+						<div>
+							<label class="intitule">Fonction:</label> <label th:text="${personne.fonction}"></label>
+						</div>
+						<div>
+							<label class="intitule">T&eacute;l&eacute;phone:</label> <label
+								th:text="${personne.telPersonne}"></label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title liste">
+						<h2>Liste des soci&eacute;t&eacute;s</h2>
+						<ul class="nav navbar-right panel_toolbox">
+							<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+							</li>
+							<li><a class="close-link"><i class="fa fa-close"></i></a></li>
+						</ul>
+						<div class="clearfix"></div>
+					</div>
+					<div class="x_content">
+						<div>
+							<a data-th-href="@{/formSociete(idPersonne=${personne.idPersonne})}" class=" fa fa-plus btn btn-success" title="Ajouter"></a>
+							<a data-th-href="@{/findPersonne}" class=" fa fa-chevron-left btn btn-default" title="Retour"></a>
+						</div>
+						<table class="table table-striped">
+							<tr>
+								<th>Code</th>
+								<th>Nom</th>
+								<th>Droit</th>
+								<th>Nombre Emp.</th>
+								<th>Adresse</th>
+								<th>E-mail</th>
+								<th>T&eacute;l&eacute;phone</th>
+								<th colspan="2">Actions</th>
+							</tr>
+							<tr th:each="e:${listEntreprises}">
+								<td th:text="${e.codeEntr}"></td>
+								<td th:text="${e.nomEntr}"></td>
+								<td th:text="${e.droit}"></td>
+								<td th:text="${e.nbreEmp}"></td>
+								<td th:text="${e.adresse}"></td>
+								<td th:text="${e.email}"></td>
+								<td th:text="${e.telephone}"></td>
+								<td><a
+									data-th-href="@{rechercherSociete(codeEntr=${e.codeEntr})}"
+									class="fa fa-edit btn btn-warning" role="button" title="Modifier"></a></td>
+								<td><a
+									onclick="return confirm('Etes vous sur de supprimer cette societe ?')"
+									data-th-href="@{supprimerSociete(codeEntr=${e.codeEntr})}"
+									class="fa fa-remove btn btn-danger" role="button" title="Supprimer"></a></td>
+							</tr>
+						</table>
+						<div class="container">
+							<ul class="nav nav-pills">
+								<li th:each="pa:${pages}"
+									th:class="${pa==currentPage}?active:''"><a
+									data-th-href="@{societe(page=${pa},motCle=${motCle})}"
+									th:text="${pa}"></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /page content -->
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	data-layout-decorate="~{fragments/layout}">
+<head>
+<title>Mesures</title>
+</head>
+<body>
+	<!-- page content -->
+	<div class="right_col" role="main" data-layout-fragment="content">
+		<div class="myForm">
+			<form th:action="@{ajouterMesure}" method="post"
+				th:object="${mesure}" enctype="multipart/form-data">
+				<div class="col-md-6 col-sm-6 col-xs-12 spacer col-md-offset-3">
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<h5>Ajouter une mesure</h5>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="libMesure" class="form-control-label">Libell&eacute;:</label>
+										<input type="text" class="form-control" id="libMesure"
+											th:field="*{libMesure}" /> <span class="rouge"
+											th:errors="*{libMesure}"></span>
+									</div>
+									<div class="form-group">
+										<label for="objectif" class="form-control-label">Objectif:</label>
+										<input type="text" class="form-control" id="objectif"
+											th:field="*{objectif}" /> <span class="rouge"
+											th:errors="*{objectif}"></span>
+									</div>
+									<div class="form-group">
+										<input type="hidden" class="form-control" id="coutMesure"
+											th:field="*{coutMesure}" /> <span class="rouge"
+											th:errors="*{coutMesure}"></span>
+									</div>
+									<div class="form-group">
+										<input type="hidden" class="form-control" id="tauxRea"
+											th:field="*{tauxRea}" /> <span class="rouge"
+											th:errors="*{tauxRea}"></span>
+									</div>
+									<div class="form-group">
+										<input type="hidden" class="form-control" id="tauxEff"
+											th:field="*{tauxEff}" /> <span class="rouge"
+											th:errors="*{tauxEff}"></span>
+									</div>
+									<div class="form-group">
+										<label class="form-control-label">Activit&eacute;
+											source:</label> <select th:field="*{activiteSource}">
+											<option th:each="actImp:${listActSourcesImpact}"
+												th:value="${actImp.idActSource}"
+												th:text="${actImp.libActSource}" />
+										</select>
+									</div>
+									<div class="form-group">
+										<input type="hidden" th:field="*{impact}" class="form-control"
+											id="impact" />
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<a
+									data-th-href="@{fermerFormMesure(idImpact=${mesure.impact.idImpact})}"
+									class="btn btn-default">Fermer</a> <input type="submit"
+									class="btn btn-success" value="Valider" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- /page content -->
+</body>
+</html>

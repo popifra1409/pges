@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	data-layout-decorate="~{fragments/layout}">
+<head>
+<title>Phases</title>
+</head>
+<body>
+	<!-- page content -->
+	<div class="right_col" role="main" data-layout-fragment="content">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-success" th:if="${projet}">
+					<div class="panel-heading">
+						<h3 class="panel-title">Informations sur le projet</h3>
+					</div>
+					<div class="panel-body info">
+						<div>
+							<label class="intitule">Soci&eacute;t&eacute;:</label> <label
+								th:text="${projet.entreprise.nomEntr}"></label>
+						</div>
+						<div>
+							<label class="intitule">Libell&eacute; projet:</label> <label
+								th:text="${projet.libProjet}"></label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title liste">
+						<h2>Liste des phases d'intervention</h2>
+						<ul class="nav navbar-right panel_toolbox">
+							<li><a class="collapse-link" title="Remonter"><i
+									class="fa fa-chevron-up"></i></a></li>
+						</ul>
+						<div class="clearfix"></div>
+					</div>
+					<div class="x_content">
+						<div><a
+								data-th-href="@{/findPlanification}"
+								class="btn btn-default fa fa-chevron-left" title="Retour"></a>
+						</div>
+						<table class="table table-striped">
+							<tr>
+								<th>Num</th>
+								<th>Libell&eacute;</th>
+								<th>Description</th>
+								<th>Date d&eacute;but</th>
+								<th>Date fin</th>
+								<th>Dur&eacute;e</th>
+								<th>Impact</th>
+							</tr>
+							<tr th:each="ph:${listPhases}">
+								<td th:text="${ph.idPhase}"></td>
+								<td th:text="${ph.libellePhase}"></td>
+								<td th:text="${ph.description}"></td>
+								<td th:text="${ph.dateDebut}"></td>
+								<td th:text="${ph.dateFin}"></td>
+								<td th:text="${ph.duree}"></td>
+								<td><a
+									data-th-href="@{impactPlanification(idPhase=${ph.idPhase})}"
+									class="btn btn-primary fa fa-caret-square-o-right"
+									role="button" title="D&eacute;tails impacts"></a></td>
+							</tr>
+						</table>
+						<div class="container">
+							<ul class="nav nav-pills">
+								<li th:each="pa:${pages}"
+									th:class="${pa==currentPage}?active:''"><a
+									data-th-href="@{phase(page=${pa},motCle=${motCle})}"
+									th:text="${pa}"></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /page content -->
+</body>
+</html>

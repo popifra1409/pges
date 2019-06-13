@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	data-layout-decorate="~{fragments/layout}">
+<head>
+<title>Projets</title>
+</head>
+<body>
+	<!-- page content -->
+	<div class="right_col" role="main" data-layout-fragment="content">
+		<div class="myForm">
+			<form th:action="@{ajouterProjet}" method="post"
+				th:object="${projet}" enctype="multipart/form-data">
+				<div class="col-md-6 col-sm-6 col-xs-12 spacer col-md-offset-3">
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<h5>Ajouter un projet</h5>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="libelle" class="form-control-label">Libell&eacute;:</label>
+										<input type="text" class="form-control" id="libelle"
+											th:field="*{libProjet}" /> <span class="rouge"
+											th:errors="*{libProjet}"></span>
+									</div>
+									<div class="form-group">
+										<label for="produit" class="form-control-label">Produit
+											d'exploitation:</label> <input type="text" class="form-control"
+											id="produit" th:field="*{produitExp}" /> <span></span>
+									</div>
+									<div class="form-group">
+										<label for="dateDebut" class="form-control-label">Date
+											D&eacute;but:</label> <input type="date" class="form-control"
+											id="dateDebut" th:field="*{dateDebut}" /> <span></span>
+									</div>
+									<div class="form-group">
+										<label for="dateFin" class="form-control-label">Date
+											Fin:</label> <input type="date" class="form-control"
+											id="dateFin" th:field="*{dateFin}" /> <span></span>
+									</div>
+									<!-- <div class="form-group">
+										<label for="duree" class="form-control-label">Dur&eacute;e
+											(jours):</label> <input type="text" class="form-control" id="duree"
+											th:field="*{duree}" /> <span></span>
+									</div> -->
+									<div>
+										<label>Site d'implantation:</label> <select th:field="*{site}">
+											<option th:each="sites : ${listSites}"
+												th:value="${sites.idSite}" th:text="${sites.nomSite}" />
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="refCCE" class="form-control-label">Ref.CCE:</label>
+										<input type="text" class="form-control" id="refCCE"
+											th:field="*{refCCE}" /> <span></span>
+									</div>
+									<div class="form-group">
+										<label for="dateCCE" class="form-control-label">Date
+											signature CCE:</label> <input type="date" class="form-control"
+											id="dateCCE" th:field="*{dateCCE}" /> <span></span>
+									</div>
+									<div class="form-group">
+										<label for="refACE" class="form-control-label">Ref.ACE:</label>
+										<input type="text" class="form-control" id="refACE"
+											th:field="*{refACE}" /> <span></span>
+									</div>
+									<div class="form-group">
+										<label for="dateACE" class="form-control-label">Date
+											signature ACE:</label> <input type="date" class="form-control"
+											id="dateACE" th:field="*{dateACE}" /> <span></span>
+									</div>
+
+									<div class="form-group">
+										<input type="hidden" th:field="*{entreprise}"
+											class="form-control" id="entreprise" />
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<a
+									data-th-href="@{fermerFormProjet(codeEntr=${projet.entreprise.codeEntr})}"
+									class="btn btn-default">Fermer</a> <input type="submit"
+									class="btn btn-success" value="Valider" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- /page content -->
+</body>
+</html>

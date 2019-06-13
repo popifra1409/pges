@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	data-layout-decorate="~{fragments/layout}">
+<head>
+<title>Soci&eacute;t&eacute;</title>
+</head>
+<body>
+	<!-- page content -->
+	<div class="right_col" role="main" data-layout-fragment="content">
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title liste">
+						<h2>Liste des agents</h2>
+						<ul class="nav navbar-right panel_toolbox">
+							<li><a class="collapse-link"
+								title="Remonter"><i class="fa fa-chevron-up"></i></a></li>
+						</ul>
+						<div class="clearfix"></div>
+					</div>
+					<div class="title_right">
+						<form th:action="@{findPersonne}" method="get">
+							<div
+								class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+								<div class="input-group">
+									<input type="text" class="form-control"
+										placeholder="Rechercher..." name="motCle" th:value="${motCle}" />
+									<span class="input-group-btn">
+										<button type="submit" class="btn btn-default">Go!</button>
+									</span>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="x_content">
+						<table class="table table-striped table-hover">
+							<tr>
+								<th>Num</th>
+								<th>Nom</th>
+								<th>Pr&eacute;nom</th>
+								<th>Sexe</th>
+								<th>Adresse</th>
+								<th>T&eacute;l&eacute;phone</th>
+								<th>Fonction</th>
+								<th>Type agent</th>
+								<th>Soci&eacute;t&eacute;</th>
+							</tr>
+							<tr th:each="p:${listPersonnes}">
+								<td th:text="${p.idPersonne}"></td>
+								<td th:text="${p.nomPersonne}"></td>
+								<td th:text="${p.pnomPersonne}"></td>
+								<td th:text="${p.sexe}"></td>
+								<td th:text="${p.adresse}"></td>
+								<td th:text="${p.telPersonne}"></td>
+								<td th:text="${p.fonction}"></td>
+								<td th:text="${p.class.simpleName}"></td>
+								<td><a
+									data-th-href="@{societe(idPersonne=${p.idPersonne})}"
+									class="fa fa-institution btn btn-primary" role="button" title="Ajouter une soci&eacute;t&eacute;" th:if="${p.class.simpleName=='Promoteur'}"></a></td>
+							</tr>
+						</table>
+						<hr />
+						<div class="container">
+							<ul class="nav nav-pills">
+								<li th:each="pa:${pages}"
+									th:class="${pa==currentPage}?active:''"><a
+									data-th-href="@{findPersonne(page=${pa},motCle=${motCle})}"
+									th:text="${pa}"></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /page content -->
+</body>
+</html>

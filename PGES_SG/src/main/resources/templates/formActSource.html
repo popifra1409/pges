@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	data-layout-decorate="~{fragments/layout}">
+<head>
+<title>Activit&eacute;s sources</title>
+</head>
+<body>
+	<!-- page content -->
+	<div class="right_col" role="main" data-layout-fragment="content">
+		<div class="myForm">
+			<form th:action="@{ajouterActSource}" method="post"
+				th:object="${activiteSource}" enctype="multipart/form-data">
+				<div class="col-md-6 col-sm-6 col-xs-12 spacer col-md-offset-3">
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<h5>Ajouter une activit&eacute; source</h5>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="libActSource" class="form-control-label">Libell&eacute;:</label>
+										<input type="text" class="form-control" id="libActSource"
+											th:field="*{libActSource}" /> <span class="rouge"
+											th:errors="*{libActSource}"></span>
+									</div>
+									<div class="form-group">
+										<div class="form-group">
+											<input type="hidden" th:field="*{impact}"
+												class="form-control" id="impact" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer"><a
+									data-th-href="@{fermerFormActSource(idImpact=${activiteSource.impact.idImpact})}"
+									class="btn btn-default">Fermer</a>
+								<input type="submit" class="btn btn-success" value="Valider" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- /page content -->
+</body>
+</html>

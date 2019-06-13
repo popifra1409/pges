@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	data-layout-decorate="~{fragments/layout}">
+<head>
+<title>Agent</title>
+</head>
+<body>
+	<!-- page content -->
+	<div class="right_col" role="main" data-layout-fragment="content">
+		<div class="myForm">
+			<form th:action="@{ajouterPersonne}" method="post"
+				th:object="${agent}" enctype="multipart/form-data">
+				<div class="col-md-6 col-sm-6 col-xs-12 spacer col-md-offset-3">
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<h5>Ajouter un agent</h5>
+						</div>
+						<div class="panel-body">
+							<div class="form-group">
+								<input type="radio" id="act" name="typePers" value="ACT"
+									checked="checked" /><label for="act"
+									class="form-control-label">&nbsp;Acteur</label> <input
+									type="radio" id="pro" name="typePers" value="PRO" /><label
+									for="pro" class="form-control-label">&nbsp;Promoteur</label> <input
+									type="radio" id="res" name="typePers" value="RES" /><label
+									for="res" class="form-control-label">&nbsp;Responsable</label>
+							</div>
+							<div class="form-group">
+								<label for="nom" class="form-control-label">Nom:</label> <input
+									th:required="required" placeholder="Nom agent" type="text"
+									class="form-control" id="nom" name="nomPersonne" /> <span></span>
+							</div>
+							<div class="form-group">
+								<label for="pnom" class="form-control-label">Pr&eacute;nom:</label>
+								<input type="text" class="form-control" id="pnom"
+									placeholder="Pr&eacute;nom agent" name="pnomPersonne" /> <span></span>
+							</div>
+							<div class="form-group form-check">
+								<label class="form-check-label form-control-label">Sexe:</label>
+								<br /> <input class="form-check-input" name="sexe"
+									type="checkbox" value="M" id="masc" /> Masculin <input
+									class="form-check-input" name="sexe" type="checkbox"
+									value="F" id="femi" /> F&eacute;minin
+							</div>
+							<div class="form-group">
+								<label for="adresse" class="form-control-label">Adresse:</label>
+								<input type="text" class="form-control" id="adresse"
+									placeholder="Adresse postale agent" name="adresse" /> <span></span>
+							</div>
+							<div class="form-group">
+								<label for="tel" class="form-control-label">T&eacute;l&eacute;phone:</label>
+								<input type="text" class="form-control" id="tel"
+									th:required="required"
+									placeholder="T&eacute;l&eacute;phone agent" name="telPersonne" />
+								<span></span>
+							</div>
+							<div class="form-group">
+								<label for="fonction" class="form-control-label">Fonction:</label>
+								<input type="text" class="form-control" id="fonction"
+									placeholder="Fonction agent" name="fonction" /> <span></span>
+							</div>
+							<div class="modal-footer">
+								<a data-th-href="@{fermer}" class="btn btn-default">Fermer</a> <input
+									type="submit" class="btn btn-success" value="Valider" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- /page content -->
+</body>
+</html>

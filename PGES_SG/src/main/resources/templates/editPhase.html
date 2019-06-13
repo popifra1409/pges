@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	data-layout-decorate="~{fragments/layout}">
+<head>
+<title>Phases</title>
+</head>
+<body>
+	<!-- page content -->
+	<div class="right_col" role="main" data-layout-fragment="content">
+		<div class="myForm">
+			<form th:action="@{/editPhase}" method="post" th:object="${phase}"
+				enctype="multipart/form-data">
+				<div class="col-md-6 col-sm-6 col-xs-12 spacer col-md-offset-3">
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<h5>Modifier une phase</h5>
+						</div>
+						<div class="panel-body">
+							<div class="form-group">
+								<input type="hidden" class="form-control" id="idPhase"
+									th:field="*{idPhase}">
+							</div>
+							<div class="form-group">
+								<label for="libelle" class="form-control-label">Libell&eacute;:</label>
+								<input type="text" class="form-control" id="libelle"
+									th:field="*{libellePhase}" /> <span class="rouge"
+									th:errors="*{libellePhase}"></span>
+							</div>
+							<div class="form-group">
+								<label for="desc" class="form-control-label">Description:</label>
+								<input type="text" class="form-control" id="desc"
+									th:field="*{description}" /> <span></span>
+							</div>
+							<div class="form-group">
+								<label for="dateDeb" class="form-control-label">Date
+									D&eacute;but:</label> <input type="date" class="form-control"
+									id="dateDeb" th:field="*{dateDebut}" /> <span class="rouge"
+									th:errors="*{dateDebut}"></span>
+							</div>
+							<div class="form-group">
+								<label for="dateFin" class="form-control-label">Date
+									Fin:</label> <input type="date" class="form-control"
+									id="dateFin" th:field="*{dateFin}" /> <span class="rouge"
+									th:errors="*{dateFin}"></span>
+							</div>
+							<div class="form-group">
+								<label for="duree" class="form-control-label">Dur&eacute;e (jours):</label>
+								<input type="text" class="form-control" id="duree"
+									th:field="*{duree}" disabled="true"/> <span></span>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<div class="form-group">
+										<input type="hidden" th:field="*{projet}" class="form-control"
+											id="projet" />
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<a
+									data-th-href="@{fermerFormPhase(idProjet=${phase.projet.idProjet})}"
+									class="btn btn-default">Fermer</a> <input type="submit"
+									class="btn btn-success" value="Valider" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- /page content -->
+</body>
+</html>

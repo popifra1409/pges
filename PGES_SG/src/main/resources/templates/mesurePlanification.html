@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	data-layout-decorate="~{fragments/layout}">
+<head>
+<title>Activit&eacute;s sources</title>
+</head>
+<body>
+	<!-- page content -->
+	<div class="right_col" role="main" data-layout-fragment="content">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-success" th:if="${impact}">
+					<div class="panel-heading">
+						<h3 class="panel-title">Informations sur l'impact</h3>
+					</div>
+					<div class="panel-body info">
+						<div>
+							<label class="intitule">Soci&eacute;t&eacute;:</label> <label
+								th:text="${impact.phase.projet.entreprise.nomEntr}"></label>
+						</div>
+						<div>
+							<label class="intitule">Projet:</label> <label
+								th:text="${impact.phase.projet.libProjet}"></label>
+						</div>
+						<div>
+							<label class="intitule">Phase:</label> <label
+								th:text="${impact.phase.libellePhase}"></label>
+						</div>
+						<div>
+							<label class="intitule">Libell&eacute; impact:</label> <label
+								th:text="${impact.libImpact}"></label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title liste">
+						<h2>Liste des mesures propos&eacute;es</h2>
+						<ul class="nav navbar-right panel_toolbox">
+							<li><a class="collapse-link" title="Remonter"><i
+									class="fa fa-chevron-up"></i></a></li>
+						</ul>
+						<div class="clearfix"></div>
+					</div>
+					<div class="title_right">
+						<form th:action="@{mesure}" method="get">
+							<!-- <div
+								class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+								<div class="input-group">
+									<label>Importance:</label> <select name="${importance}">
+										<option th:value="''">Choisissez</option>
+										<option th:value="Grande" th:text="Grande"></option>
+										<option th:value="Moyenne" th:text="Moyenne"></option>
+										<option th:value="Faible" th:text="Faible"></option>
+									</select>
+								</div>
+							</div> -->
+						</form>
+					</div>
+					<div class="x_content">
+						<div>
+							<a
+								data-th-href="@{/impactPlanification(idPhase=${impact.phase.idPhase})}"
+								class="btn btn-default fa fa-chevron-left" title="Retour"></a>
+						</div>
+						<table class="table table-striped">
+							<tr>
+								<th>Num</th>
+								<th>Libell&eacute;</th>
+								<th>Objectif</th>
+								<th>Cout mise en oeuvre</th>
+								<th>Cout surveillance</th>
+								<th>Cout suivi</th>
+								<th>TRM</th>
+								<th>Appr&eacute;ciation</th>
+								<th>Activit&eacute; source de l'impact</th>
+								<th>Activit&eacute; n&eacute;cessaire</th>
+							</tr>
+							<tr th:each="m:${listMesuresActSources}">
+								<td th:text="${m.idMesure}"></td>
+								<td th:text="${m.libMesure}"></td>
+								<td th:text="${m.objectif}"></td>
+								<td th:text="${m.coutMesure}"></td>
+								<td th:text="${m.coutSurveillance}"></td>
+								<td th:text="${m.coutSuivi}"></td>
+								<td th:text="${m.tauxRea}"></td>
+								<td th:text="${m.appreciation}"></td>
+								<td th:text="${m.activiteSource.libActSource}"></td>
+								<td><a
+									data-th-href="@{/findActNec(idMesure=${m.idMesure})}"
+									class="btn btn-primary fa fa-plus" role="button"
+									title="Ajouter une activit&eacute; n&eacute;cessaire"></a></td>
+							</tr>
+						</table>
+						<div class="container">
+							<ul class="nav nav-pills">
+								<li th:each="pa:${pages}"
+									th:class="${pa==currentPage}?active:''"><a
+									data-th-href="@{findMesure(page=${pa},motCle=${motCle})}"
+									th:text="${pa}"></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /page content -->
+</body>
+</html>

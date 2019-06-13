@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	data-layout-decorate="~{fragments/layout}">
+<head>
+<title>Impacts</title>
+</head>
+<body>
+	<!-- page content -->
+	<div class="right_col" role="main" data-layout-fragment="content">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-success" th:if="${phase}">
+					<div class="panel-heading">
+						<h3 class="panel-title">Informations sur la phase</h3>
+					</div>
+					<div class="panel-body info">
+						<div>
+							<label class="intitule">Soci&eacute;t&eacute;:</label> <label th:text="${phase.projet.entreprise.nomEntr}"></label>
+						</div>
+						<div>
+							<label class="intitule">Projet:</label> <label th:text="${phase.projet.libProjet}"></label>
+						</div>
+						<div>
+							<label class="intitule">Libell&eacute; phase:</label> <label
+								th:text="${phase.libellePhase}"></label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title liste">
+						<h2>Liste des impacts</h2>
+						<ul class="nav navbar-right panel_toolbox">
+							<li><a class="collapse-link" title="Remonter"><i class="fa fa-chevron-up"></i></a>
+							</li>
+						</ul>
+						<div class="clearfix"></div>
+					</div>
+					<div class="title_right">
+						<form th:action="@{impact}" method="get">
+							<div
+								class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+								<div class="input-group">
+									<label>Importance:</label> <select name="${importance}">
+										<option th:value="''">Choisissez</option>
+										<option th:value="Grande" th:text="Grande"></option>
+										<option th:value="Moyenne" th:text="Moyenne"></option>
+										<option th:value="Faible" th:text="Faible"></option>
+									</select>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="x_content">
+						<div>
+							<a data-th-href="@{/formImpact(idPhase=${phase.idPhase})}"
+								class="btn btn-success fa fa-plus" title="Ajouter"></a>
+								<a data-th-href="@{/impact(idProjet=${phase.projet.idProjet})}"
+								class="btn btn-default fa fa-chevron-left" title="Retour"></a>
+						</div>
+						<table class="table table-striped">
+							<tr>
+								<th>Num</th>
+								<th>Libell&eacute;</th>
+								<th>Importance</th>
+								<th>TCI</th>
+								<th colspan="2">Actions</th>
+								<th>Activit&eacute; source</th>
+								<th>Mesure propos&eacute;e</th>
+							</tr>
+							<tr th:each="i:${listImpacts}">
+								<td th:text="${i.idImpact}"></td>
+								<td th:text="${i.libImpact}"></td>
+								<td th:text="${i.importance}"></td>
+								<td th:text="${i.tauxCouverture}"></td>
+								<td><a
+									data-th-href="@{rechercherImpact(id=${i.idImpact})}"
+									class="fa fa-edit btn btn-warning" role="button"
+									title="Modifier"></a></td>
+								<td><a
+									onclick="return confirm('Etes vous sur de supprimer cet impact ?')"
+									data-th-href="@{supprimerImpact(id=${i.idImpact})}"
+									class="fa fa-remove btn btn-danger" role="button"
+									title="Supprimer"></a></td>
+								<td><a
+									data-th-href="@{findActSource(idImpact=${i.idImpact})}"
+									class="btn btn-primary fa fa-tasks" role="button"
+									title="Ajouter une activit&eacute; source"></a></td>
+								<td><a data-th-href="@{findMesure(idImpact=${i.idImpact})}"
+									class="btn btn-default fa fa-ellipsis-h" role="button" title="Ajouter une mesure"></a></td>
+							</tr>
+						</table>
+						<div class="container">
+							<ul class="nav nav-pills">
+								<li th:each="pa:${pages}"
+									th:class="${pa==currentPage}?active:''"><a
+									data-th-href="@{impact(page=${pa},motCle=${motCle})}"
+									th:text="${pa}"></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /page content -->
+</body>
+</html>

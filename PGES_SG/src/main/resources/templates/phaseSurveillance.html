@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	data-layout-decorate="~{fragments/layout}">
+<head>
+<title>Surveillance</title>
+</head>
+<body>
+	<!-- page content -->
+	<div class="right_col" role="main" data-layout-fragment="content">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-success" th:if="${phase}">
+					<div class="panel-heading">
+						<h3 class="panel-title">Informations sur la phase</h3>
+					</div>
+					<div class="panel-body info">
+						<div>
+							<label class="intitule">Soci&eacute;t&eacute;:</label> <label
+								th:text="${phase.projet.entreprise.nomEntr}"></label>
+						</div>
+						<div>
+							<label class="intitule">Projet:</label> <label
+								th:text="${phase.projet.libProjet}"></label>
+						</div>
+						<div>
+							<label class="intitule">Libell&eacute; phase:</label> <label
+								th:text="${phase.libellePhase}"></label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title liste">
+						<h2>Liste des surveillances</h2>
+						<ul class="nav navbar-right panel_toolbox">
+							<li><a class="collapse-link"><i class="fa fa-chevron-up"
+									title="Remonter"></i></a></li>
+						</ul>
+						<div class="clearfix"></div>
+					</div>
+					<div class="title_right">
+					</div>
+					<div class="x_content">
+						<div>
+							<a data-th-href="@{/formSurveillance(idPhase=${phase.idPhase})}"
+								class="btn btn-success fa fa-plus" title="Ajouter"></a> <a
+								data-th-href="@{/surveillance(idProjet=${phase.projet.idProjet})}"
+								class="btn btn-default fa fa-chevron-left" title="Retour"></a>
+						</div>
+						<table class="table table-striped">
+							<tr>
+								<th>Date surveillance</th>
+								<th>Impact</th>
+								<th>Importance impact</th>
+								<th>Mesure propos&eacute;e</th>
+								<th>Activit&eacute; necessaire</th>
+								<th>Activit&eacute; planifi&eacute;e</th>
+								<th>P&eacute;riode de surveillance</th>
+								<th>Indicateur de surveillance</th>
+								<th>Moyen v&eacute;rification</th>
+								<th>Cout de surveillance</th>
+								<th>Responsable</th>
+								<th>Appr&eacute;ciation</th>
+								<th>TRAN</th>
+								<th>TRM</th>
+								<th>TCI</th>
+								<th>Commentaire</th>
+								<th colspan="2">Actions</th>
+							</tr>
+							<tr th:each="su:${listSurveillances}">
+								<td th:text="${su.dateSurveillance}"></td>
+								<td th:text="${su.tache.activite.mesure.impact.libImpact}"></td>
+								<td th:text="${su.tache.activite.mesure.impact.importance}"></td>
+								<td th:text="${su.tache.activite.mesure.libMesure}"></td>
+								<td th:text="${su.tache.activite.libActNec}"></td>
+								<td th:text="${su.tache.libTache}"></td>
+								<td th:text="${su.periodeSurveillance}"></td>
+								<td th:text="${su.indicateurSurveillance}"></td>
+								<td th:text="${su.moyenVerif}"></td>
+								<td th:text="${su.coutSurveillance}"></td>
+								<td th:text="${su.personne.nomPersonne}"></td>
+								<td th:text="${su.tache.activite.appreciation}"></td>
+								<td th:text="${su.tache.activite.tauxRea}"></td>
+								<td th:text="${su.tache.activite.mesure.tauxRea}"></td>
+								<td th:text="${su.tache.activite.mesure.impact.tauxCouverture}"></td>
+								<td th:text="${su.comSurveillance}"></td>
+								<td><a data-th-href="@{rechercherSurveillance(id=${su.idSurveillance})}" class="btn btn-warning fa fa-edit"
+									role="button" title="Modifier"></a></td>
+								<td><a data-th-href="@{#}" class="btn btn-danger fa fa-remove"
+									role="button" title=""></a></td>
+							</tr>
+						</table>
+						<div class="container">
+							<ul class="nav nav-pills">
+								<li th:each="pa:${pages}"
+									th:class="${pa==currentPage}?active:''"><a
+									data-th-href="@{phaseSurveillance(page=${pa},motCle=${motCle})}"
+									th:text="${pa}"></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /page content -->
+</body>
+</html>

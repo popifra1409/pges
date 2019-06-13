@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	data-layout-decorate="~{fragments/layout}">
+<head>
+<title>Soci&eacute;t&eacute;</title>
+</head>
+<body>
+	<!-- page content -->
+	<div class="right_col" role="main" data-layout-fragment="content">
+		<div class="myForm">
+			<form th:action="@{editSociete}" method="post"
+				th:object="${societe}" enctype="multipart/form-data">
+				<div class="col-md-6 col-sm-6 col-xs-12 spacer col-md-offset-3">
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<h5>Modifier une soci&eacute;t&eacute;</h5>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="form-group">
+									<input type="hidden" class="form-control" id="code"
+										th:value="${societe.personne.idPersonne}">
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="code">Code:</label> <input type="text"
+											class="form-control" id="code" th:field="*{codeEntr}">
+									</div>
+									<span class="rouge" th:errors="*{codeEntr}"></span>
+									<div class="form-group">
+										<label for="nom">Raison sociale:</label> <input type="text"
+											class="form-control" id="nom" th:field="*{nomEntr}" />
+									</div>
+									<span class="rouge" th:errors="*{nomEntr}"></span>
+									<div class="form-group">
+										<label for="droit">Droit:</label> <input type="text"
+											class="form-control" id="droit" th:field="*{droit}" />
+									</div>
+									<div class="form-group">
+										<label for="nbre">Nombre employ&eacute;s:</label> <input
+											type="text" class="form-control" id="nbre"
+											th:field="*{nbreEmp}" />
+									</div>
+									<div class="form-group">
+										<label for="adresse">Adresse:</label> <input type="text"
+											class="form-control" id="adresse" th:field="*{adresse}" />
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="email">E-mail:</label> <input type="email"
+											class="form-control" id="email" th:field="*{email}" />
+									</div>
+									<div class="form-group">
+										<label for="tel">T&eacute;l&eacute;phone:</label> <input
+											type="text" class="form-control" id="tel"
+											th:field="*{telephone}" />
+									</div>
+									<span class="rouge" th:errors="*{telephone}"></span>
+									<div class="form-group">
+										<input type="hidden" th:field="*{personne}"
+											class="form-control" id="personne" />
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<a
+									data-th-href="@{fermerFormSociete(idPersonne=${societe.personne.idPersonne})}"
+									class="btn btn-default">Fermer</a> <input type="submit"
+									class="btn btn-success" value="Valider" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- /page content -->
+</body>
+</html>

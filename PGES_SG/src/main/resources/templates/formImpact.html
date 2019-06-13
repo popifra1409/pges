@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	data-layout-decorate="~{fragments/layout}">
+<head>
+<title>Impacts</title>
+</head>
+<body>
+	<!-- page content -->
+	<div class="right_col" role="main" data-layout-fragment="content">
+		<div class="myForm">
+			<form th:action="@{ajouterImpact}" method="post"
+				th:object="${impact}" enctype="multipart/form-data">
+				<div class="col-md-6 col-sm-6 col-xs-12 spacer col-md-offset-3">
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<h5>Ajouter un impact</h5>
+						</div>
+						<div class="panel-body">
+							<div class="form-group">
+								<label for="libImpact" class="form-control-label">Libell&eacute;:</label>
+								<input type="text" class="form-control" id="libImpact"
+									th:field="*{libImpact}" /> <span class="rouge"
+									th:errors="*{libImpact}"></span>
+							</div>
+							<div class="form-group">
+								<input type="hidden" class="form-control" id="tauxCouverture"
+									th:field="*{tauxCouverture}" /> <span class="rouge"
+									th:errors="*{tauxCouverture}"></span>
+							</div>
+							<div class="form-group">
+								<label>Importance:</label> <select th:field="*{importance}">
+									<option th:value="''">Choisissez</option>
+									<option th:value="Grande" th:text="Grande"></option>
+									<option th:value="Moyenne" th:text="Moyenne"></option>
+									<option th:value="Faible" th:text="Faible"></option>
+								</select>
+							</div>
+							<div class="form-group">
+								<input type="hidden" th:field="*{phase}" class="form-control"
+									id="phase" />
+							</div>
+							<div class="modal-footer">	<a
+									data-th-href="@{fermerFormImpact(idPhase=${impact.phase.idPhase})}"
+									class="btn btn-default">Fermer</a>
+								<input type="submit" class="btn btn-success" value="Valider" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- /page content -->
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	data-layout-decorate="~{fragments/layout}">
+<head>
+<title>Sites</title>
+</head>
+<body>
+	<!-- page content -->
+	<div class="right_col" role="main" data-layout-fragment="content">
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title liste">
+						<h2>Liste des sites</h2>
+						<ul class="nav navbar-right panel_toolbox">
+							<li><a class="collapse-link" title="Remonter"><i
+									class="fa fa-chevron-up"></i></a></li>
+						</ul>
+						<div class="clearfix"></div>
+					</div>
+					<div class="title_right">
+						<form th:action="@{site}" method="get">
+							<div
+								class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+								<div class="input-group">
+									<input type="text" class="form-control"
+										placeholder="Nom site..." name="motCle" th:value="${motCle}" />
+									<span class="input-group-btn">
+										<button type="submit" class="btn btn-default">Go!</button>
+									</span>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="x_content">
+						<div>
+							<a data-th-href="@{formSite}" class="fa fa-plus btn btn-success"
+								title="Ajouter"></a>
+						</div>
+						<table class="table table-striped">
+							<tr>
+								<th>Num</th>
+								<th>Nom</th>
+								<th>Pays</th>
+								<th>R&eacute;gion</th>
+								<th>D&eacute;partement</th>
+								<th>Ville</th>
+								<th>Longitude</th>
+								<th>Latitude</th>
+								<th colspan="2">Actions</th>
+							</tr>
+							<tr th:each="s:${listSites}">
+								<td th:text="${s.idSite}"></td>
+								<td th:text="${s.nomSite}"></td>
+								<td th:text="${s.pays}"></td>
+								<td th:text="${s.region}"></td>
+								<td th:text="${s.department}"></td>
+								<td th:text="${s.ville}"></td>
+								<td th:text="${s.longitude}"></td>
+								<td th:text="${s.latitude}"></td>
+								<td><a data-th-href="@{rechercherSite(id=${s.idSite})}"
+									class="fa fa-edit btn btn-warning" role="button"
+									title="Modifier"></a></td>
+								<td><a
+									onclick="return confirm('Etes vous sur de supprimer ce site ?')"
+									data-th-href="@{supprimerSite(id=${s.idSite})}"
+									class="fa fa-remove btn btn-danger" role="button"
+									title="Supprimer"></a></td>
+							</tr>
+						</table>
+						<div class="container">
+							<ul class="nav nav-pills">
+								<li th:each="pa:${pages}"
+									th:class="${pa==currentPage}?active:''"><a
+									data-th-href="@{site(page=${pa},motCle=${motCle})}"
+									th:text="${pa}"></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /page content -->
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	data-layout-decorate="~{fragments/layout}">
+<head>
+<title>Suivi</title>
+</head>
+<body>
+	<!-- page content -->
+	<div class="right_col" role="main" data-layout-fragment="content">
+		<div class="myForm">
+			<form th:action="@{editSuivi}" method="post" th:object="${suivi}"
+				enctype="multipart/form-data">
+				<div class="col-md-6 col-sm-6 col-xs-12 spacer col-md-offset-3">
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<h5>Modifier un suivi</h5>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<input type="hidden" class="form-control" id="idSuivi"
+											th:field="*{idSuivi}" /> <span></span>
+									</div>
+									<div class="form-group">
+										<label for="dateSuivi" class="form-control-label">Date
+											suivi:</label> <input type="date" class="form-control" id="dateSuivi"
+											th:field="*{dateSuivi}" /> <span></span>
+									</div>
+									<div class="form-group">
+										<label class="form-control-label">R&eacute;sultat:</label>
+										<div>
+											<select th:field="*{resultat}">
+												<option th:each="rp : ${listeResultatsPhase}"
+													th:value="${rp.idResultat}" th:text="${rp.libResultat}" />
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="situationRef" class="form-control-label">Situation
+											r&eacute;f&eacute;rence:</label> <input type="text"
+											class="form-control" id="situationRef"
+											th:field="*{situationRef}" /> <span></span>
+									</div>
+									<div class="form-group">
+										<label for="horizonRef" class="form-control-label">Horizon
+											r&eacute;f&eacute;rence:</label> <input type="text"
+											class="form-control" id="horizonRef" th:field="*{horizonRef}" />
+										<span></span>
+									</div>
+									<div class="form-group">
+										<label for="periodeSuivi" class="form-control-label">P&eacute;riode
+											suivi:</label> <input type="text" class="form-control"
+											id="periodeSuivi" th:field="*{periodeSuivi}" /> <span></span>
+									</div>
+									<div class="form-group">
+										<label for="frequenceSuivi" class="form-control-label">Fr&eacute;quence
+											suivi:</label> <input type="text" class="form-control"
+											id="frequenceSuivi" th:field="*{frequenceSuivi}" /> <span></span>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="indicateurSuivi" class="form-control-label">Indicateur
+											suivi:</label> <input type="text" class="form-control"
+											id="indicateurSuivi" th:field="*{indicateurSuivi}" /> <span></span>
+									</div>
+									<div class="form-group">
+										<label for="moyenVerification" class="form-control-label">Moyen
+											v&eacute;rification:</label> <input type="text" class="form-control"
+											id="moyenVerification" th:field="*{moyenVerification}" /> <span></span>
+									</div>
+									<div class="form-group">
+										<label for="coutSuivi" class="form-control-label">Cout
+											de suivi:</label> <input type="text" class="form-control"
+											id="coutSuivi" th:field="*{coutSuivi}" /> <span></span>
+									</div>
+									<div class="form-group">
+										<label for="tauxEff" class="form-control-label">Taux
+											efficacit&eacute;:</label> <input type="text" class="form-control"
+											id="tauxEff" th:field="*{tauxEff}" /> <span></span>
+									</div>
+									<div class="form-group">
+										<label for="comSuivi" class="form-control-label">Commentaire:</label>
+										<input type="text" class="form-control" id="comSuivi"
+											th:field="*{comSuivi}" /> <span></span>
+									</div>
+									<div class="form-group">
+										<label class="form-control-label">Responsable:</label>
+										<div>
+											<select th:field="*{personne}">
+												<option th:each="p : ${listPersonnes}"
+													th:if="${p.class.simpleName!='Promoteur'}"
+													th:value="${p.idPersonne}" th:text="${p.nomPersonne}" />
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<input type="hidden" th:field="*{phase}" class="form-control"
+											id="phase" />
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<a data-th-href="@{fermerFormSuivi(idPhase=${phase.idPhase})}"
+									class="btn btn-default">Fermer</a> <input type="submit"
+									class="btn btn-success" value="Valider" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- /page content -->
+</body>
+</html>

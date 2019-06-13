@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	data-layout-decorate="~{fragments/layout}">
+<head>
+<title>Mise en oeuvre</title>
+</head>
+<body>
+	<!-- page content -->
+	<div class="right_col" role="main" data-layout-fragment="content">
+		<div class="myForm">
+			<form th:action="@{ajouterMeo}" method="post" th:object="${meo}"
+				enctype="multipart/form-data">
+				<div class="col-md-6 col-sm-6 col-xs-12 spacer col-md-offset-3">
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<h5>Ajouter une mise en oeuvre</h5>
+						</div>
+						<div class="panel-body">
+							<div class="form-group">
+								<label class="form-control-label">Tache:</label>
+								<div>
+									<select th:field="*{tache}">
+										<option th:each="tph : ${listTachePhase}"
+											th:value="${tph.idTache}" th:text="${tph.libTache}" />
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="dateDeb" class="form-control-label">Date
+									D&eacute;but:</label> <input type="date" class="form-control"
+									id="dateDeb" th:field="*{dateDebut}" /> <span class="rouge"
+									th:errors="*{dateDebut}"></span>
+							</div>
+							<div class="form-group">
+								<label for="dateFin" class="form-control-label">Date
+									Fin:</label> <input type="date" class="form-control" id="dateFin"
+									th:field="*{dateFin}" /> <span class="rouge"
+									th:errors="*{dateFin}"></span>
+							</div>
+							<div class="form-group">
+								<label for="periodeMeo" class="form-control-label">P&eacute;riode
+									mise en oeuvre:</label> <input type="text" class="form-control"
+									id="periodeMeo" th:field="*{periodeMeo}" /> <span></span>
+							</div>
+							<div class="form-group">
+								<label for="coutMeo" class="form-control-label">Cout
+									mise en oeuvre:</label> <input type="text" class="form-control"
+									id="coutMeo" th:field="*{coutMeo}" /> <span></span>
+							</div>
+							<div class="form-group">
+								<label for="comMeo" class="form-control-label">Commentaire:</label>
+								<input type="text" class="form-control" id="comMeo"
+									th:field="*{comMeo}" /> <span></span>
+							</div>
+							<div class="form-group">
+								<label class="form-control-label">Responsable:</label>
+								<div>
+									<select th:field="*{personne}">
+										<option th:each="p : ${listAgents}" th:value="${p.idPersonne}"
+											th:text="${p.nomPersonne}"
+											th:if="${p.class.simpleName!='Promoteur'}" />
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<input type="hidden" th:field="*{phase}" class="form-control"
+									id="phase" />
+							</div>
+							<div class="modal-footer">
+								<a data-th-href="@{fermerFormMeo(idPhase=${meo.phase.idPhase})}"
+									class="btn btn-default">Fermer</a> <input type="submit"
+									class="btn btn-success" value="Valider" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- /page content -->
+</body>
+</html>

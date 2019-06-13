@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Built-By: nolan
+Build-Jdk: 11.0.3
+Implementation-Title: PGES_SG
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.pges
+Implementation-Vendor: Pivotal Software, Inc.
+Implementation-URL: http://projects.spring.io/spring-boot/PGES_SG/
+Main-Class: com.pges.PgesSgApplication
+Created-By: Maven Integration for Eclipse
+

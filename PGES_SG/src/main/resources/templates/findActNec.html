@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	data-layout-decorate="~{fragments/layout}">
+<head>
+<title>Activit&eacute;s n&eacute;cessaires</title>
+</head>
+<body>
+	<!-- page content -->
+	<div class="right_col" role="main" data-layout-fragment="content">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-success" th:if="${mesure}">
+					<div class="panel-heading">
+						<h3 class="panel-title">Informations sur la mesure</h3>
+					</div>
+					<div class="panel-body info">
+						<div>
+							<label class="intitule">Soci&eacute;t&eacute;:</label> <label
+								th:text="${mesure.impact.phase.projet.entreprise.nomEntr}"></label>
+						</div>
+						<div>
+							<label class="intitule">Projet:</label> <label
+								th:text="${mesure.impact.phase.projet.libProjet}"></label>
+						</div>
+						<div>
+							<label class="intitule">Phase:</label> <label
+								th:text="${mesure.impact.phase.libellePhase}"></label>
+						</div>
+						<div>
+							<label class="intitule">Impact:</label> <label
+								th:text="${mesure.impact.libImpact}"></label>
+						</div>
+						<div>
+							<label class="intitule">Libell&eacute; mesure:</label> <label
+								th:text="${mesure.libMesure}"></label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title liste">
+						<h2>Liste des activit&eacute;s n&eacute;cessaires</h2>
+						<ul class="nav navbar-right panel_toolbox">
+							<li><a class="collapse-link" title="Remonter"><i
+									class="fa fa-chevron-up"></i></a></li>
+						</ul>
+						<div class="clearfix"></div>
+					</div>
+					<div class="title_right">
+						<!-- <form th:action="@{impact}" method="get">
+							<div
+								class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+								<div class="input-group">
+									<label>Importance:</label> <select name="${importance}">
+										<option th:value="''">Choisissez</option>
+										<option th:value="Grande" th:text="Grande"></option>
+										<option th:value="Moyenne" th:text="Moyenne"></option>
+										<option th:value="Faible" th:text="Faible"></option>
+									</select>
+								</div>
+							</div>
+						</form> -->
+					</div>
+					<div class="x_content">
+						<div>
+							<a data-th-href="@{/formActNec(idMesure=${mesure.idMesure})}"
+								class="btn btn-success fa fa-plus" title="Ajouter"></a> <a
+								data-th-href="@{/mesurePlanification(idImpact=${mesure.impact.idImpact})}"
+								class="btn btn-default fa fa-chevron-left" title="Retour"></a>
+						</div>
+						<table class="table table-striped">
+							<tr>
+								<th>Num</th>
+								<th>Libell&eacute;</th>
+								<th>Priorit&eacute;</th>
+								<th>Cout r&eacute;alisation</th>
+								<th>TRP</th>
+								<th>Appr&eacute;ciation</th>
+								<th colspan="2">Actions</th>
+								<th>Activit&eacute; planifi&eacute;e</th>
+							</tr>
+							<tr th:each="an:${listMesuresActSources}">
+								<td th:text="${an.idActNec}"></td>
+								<td th:text="${an.libActNec}"></td>
+								<td th:text="${an.priorite}"></td>
+								<td th:text="${an.coutActNec}"></td>
+								<td th:text="${an.tauxRea}"></td>
+								<td th:text="${an.appreciation}"></td>
+								<td><a
+									data-th-href="@{rechercherActNec(id=${an.idActNec})}"
+									class="btn btn-warning fa fa-edit" role="button"
+									title="Modifier"></a></td>
+								<td><a data-th-href="@{#}"
+									class="btn btn-danger fa fa-remove" role="button"
+									title="Supprimer"></a></td>
+								<td><a
+									data-th-href="@{/findTache(idActNec=${an.idActNec})}"
+									class="btn btn-primary fa fa-plus" role="button"
+									title="Ajouter une activit&eacute; planifi&eacute;e"></a></td>
+							</tr>
+						</table>
+						<div class="container">
+							<ul class="nav nav-pills">
+								<li th:each="pa:${pages}"
+									th:class="${pa==currentPage}?active:''"><a
+									data-th-href="@{activiteNec(page=${pa},motCle=${motCle})}"
+									th:text="${pa}"></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /page content -->
+</body>
+</html>

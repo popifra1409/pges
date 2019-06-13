@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	data-layout-decorate="~{fragments/layout}">
+<head>
+<title>Surveillance</title>
+</head>
+<body>
+	<!-- page content -->
+	<div class="right_col" role="main" data-layout-fragment="content">
+		<div class="myForm">
+			<form th:action="@{editSurveillance}" method="post"
+				th:object="${surveillance}" enctype="multipart/form-data">
+				<div class="col-md-6 col-sm-6 col-xs-12 spacer col-md-offset-3">
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<h5>Modifier une surveillance</h5>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<input type="hidden" class="form-control" id="idSurveillance"
+											th:field="*{idSurveillance}" /> <span></span>
+									</div>
+									<div class="form-group">
+										<label for="dateSurveillance" class="form-control-label">Date
+											surveillance:</label> <input type="date" class="form-control"
+											id="dateSurveillance" th:field="*{dateSurveillance}" /> <span></span>
+									</div>
+									<div class="form-group">
+										<label class="form-control-label">Activit&eacute;
+											planifi&eacute;e:</label>
+										<div>
+											<select th:field="*{tache}">
+												<option th:each="tSu : ${listTachePhase}"
+													th:value="${tSu.idTache}"
+													th:text="${tSu.libTache}" />
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="periodeSurveillance" class="form-control-label">P&eacute;riode
+											surveillance:</label> <input type="text" class="form-control"
+											id="periodeSurveillance" th:field="*{periodeSurveillance}" />
+										<span></span>
+									</div>
+									<div class="form-group">
+										<label for="indicateurSurveillance" class="form-control-label">Indicateur
+											surveillance:</label> <input type="text" class="form-control"
+											id="indicateurSurveillance"
+											th:field="*{indicateurSurveillance}" /> <span></span>
+									</div>
+									<div class="form-group">
+										<label for="moyenVerif" class="form-control-label">Moyen
+											v&eacute;rification:</label> <input type="text" class="form-control"
+											id="moyenVerif" th:field="*{moyenVerif}" /> <span></span>
+									</div>
+
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<div class="form-group">
+											<input type="hidden" class="form-control" id="idSurveillance"
+												th:field="*{idSurveillance}" /> <span></span>
+										</div>
+										<label for="coutSurveillance" class="form-control-label">Cout
+											de surveillance:</label> <input type="text" class="form-control"
+											id="coutSurveillance" th:field="*{coutSurveillance}" /> <span></span>
+									</div>
+									<div class="form-group">
+										<label for="tauxEff" class="form-control-label">Taux
+											r&eacute;alisation:</label> <input type="text" class="form-control"
+											id="tauxEff" th:field="*{tauxEff}" /> <span></span>
+									</div>
+									<div class="form-group">
+										<label for="comSurveillance" class="form-control-label">Commentaire:</label>
+										<input type="text" class="form-control" id="comSurveillance"
+											th:field="*{comSurveillance}" /> <span></span>
+									</div>
+									<div class="form-group">
+										<label class="form-control-label">Responsable:</label>
+										<div>
+											<select th:field="*{personne}">
+												<option th:each="p : ${listPersonnes}"
+													th:if="${p.class.simpleName!='Promoteur'}"
+													th:value="${p.idPersonne}" th:text="${p.nomPersonne}" />
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<input type="hidden" th:field="*{phase}" class="form-control"
+											id="phase" />
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<a
+									data-th-href="@{fermerFormSurveillance(idPhase=${surveillance.phase.idPhase})}"
+									class="btn btn-default">Fermer</a> <input type="submit"
+									class="btn btn-success" value="Valider" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- /page content -->
+</body>
+</html>

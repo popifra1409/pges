@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	data-layout-decorate="~{fragments/layout}">
+<head>
+<title>Projets</title>
+</head>
+<body>
+	<!-- page content -->
+	<div class="right_col" role="main" data-layout-fragment="content">
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title liste">
+						<h2>Liste des soci&eacute;t&eacute;s</h2>
+						<ul class="nav navbar-right panel_toolbox">
+							<li><a class="collapse-link" title="Remonter"><i
+									class="fa fa-chevron-up"></i></a></li>
+						</ul>
+						<div class="clearfix"></div>
+					</div>
+					<div class="title_right">
+						<form th:action="@{findSociete}" method="get">
+							<div
+								class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+								<div class="input-group">
+									<input type="text" class="form-control" id="motCle"
+										placeholder="Nom soci&eacute;t&eacute;..." name="motCle"
+										th:value="${motCle}" /> <span class="input-group-btn">
+										<button type="submit" class="btn btn-default">Go!</button>
+									</span>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="x_content">
+						<table class="table table-striped">
+							<tr>
+								<th>Code</th>
+								<th>Nom</th>
+								<th>Droit</th>
+								<th>Nombre Emp.</th>
+								<th>Adresse</th>
+								<th>E-mail</th>
+								<th>T&eacute;l&eacute;phone</th>
+								<th>Projet</th>
+							</tr>
+							<tr th:each="e:${listEntreprises}">
+								<td th:text="${e.codeEntr}"></td>
+								<td th:text="${e.nomEntr}"></td>
+								<td th:text="${e.droit}"></td>
+								<td th:text="${e.nbreEmp}"></td>
+								<td th:text="${e.adresse}"></td>
+								<td th:text="${e.email}"></td>
+								<td th:text="${e.telephone}"></td>
+								<td><a data-th-href="@{projet(codeEntr=${e.codeEntr})}"
+									class="btn btn-primary fa fa-tasks" role="button"
+									title="Ajouter un projet"></a></td>
+							</tr>
+						</table>
+						<div class="container">
+							<ul class="nav nav-pills">
+								<li th:each="pa:${pages}"
+									th:class="${pa==currentPage}?active:''"><a
+									data-th-href="@{findSociete(page=${pa},motCle=${motCle})}"
+									th:text="${pa}"></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /page content -->
+</body>
+</html>

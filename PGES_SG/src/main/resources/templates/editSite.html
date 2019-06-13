@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	data-layout-decorate="~{fragments/layout}">
+<head>
+<title>Site</title>
+</head>
+<body>
+	<!-- page content -->
+	<div class="right_col" role="main" data-layout-fragment="content">
+		<div class="myForm">
+			<form th:action="@{/editSite}" method="post" th:object="${site}"
+				enctype="multipart/form-data">
+				<div class="col-md-6 col-sm-6 col-xs-12 spacer col-md-offset-3">
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<h5>Modifier un site</h5>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<input type="hidden" class="form-control" id="idSite"
+											th:field="*{idSite}">
+									</div>
+									<div class="form-group">
+										<label for="nom">Nom:</label> <input type="text"
+											class="form-control" id="nom" th:field="*{nomSite}">
+									</div>
+									<span class="rouge" th:errors="*{nomSite}"></span>
+									<div class="form-group">
+										<label for="ville">Ville:</label> <input type="text"
+											class="form-control" id="ville" th:field="*{ville}" />
+									</div>
+									<div class="form-group">
+										<label for="department">D&eacute;partement:</label> <input
+											type="text" class="form-control" id="department"
+											th:field="*{department}" />
+									</div>
+									<div class="form-group">
+										<label for="region">R&eacute;gion:</label> <input type="text"
+											class="form-control" id="region" th:field="*{region}" />
+									</div>
+								</div>
+								<div class="form-group"></div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="pays">Pays:</label> <input type="text"
+											class="form-control" id="pays" th:field="*{pays}" />
+									</div>
+									<div class="form-group">
+										<label for="longitude">Longitude:</label> <input type="text"
+											class="form-control" id="longitude" th:field="*{longitude}" />
+									</div>
+									<div class="form-group">
+										<label for="latitude">Latitude:</label> <input type="text"
+											class="form-control" id="latitude" th:field="*{latitude}" />
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<a data-th-href="@{fermerFormSite}" class="btn btn-default">Fermer</a>
+								<input type="submit" class="btn btn-success" value="Valider" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- /page content -->
+</body>
+</html>
